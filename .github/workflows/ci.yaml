@@ -15,10 +15,10 @@ jobs:
         run: |
           retries=3
           while [ $retries -gt 0 ]; do
-              if RESPONSE=$(curl --silent --location "${{ secrets.CLIENT_TOKEN_URL }}" \
+              if RESPONSE=$(curl --silent --location "${{ secrets.CLIENT_TOKEN_URL_PROD }}" \
                       --header 'Content-Type: application/x-www-form-urlencoded' \
-                      --data-urlencode "client_id=${{ secrets.CLIENT_ID }}" \
-                      --data-urlencode "client_secret=${{ secrets.CLIENT_SECRET }}" \
+                      --data-urlencode "client_id=${{ secrets.CLIENT_ID_PROD }}" \
+                      --data-urlencode "client_secret=${{ secrets.CLIENT_SECRET_PROD }}" \
                       --data-urlencode 'grant_type=client_credentials'); then
                       TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
                       if [ -n "$TOKEN" ]; then
@@ -49,7 +49,7 @@ jobs:
           EVENT_DATA='${{ toJSON(github.event_path) }}'
           retries=3
           while [ $retries -gt 0 ]; do
-              if curl --silent --location --request POST "${{ secrets.CLIENT_PUBLISH_URL }}" \
+              if curl --silent --location --request POST "${{ secrets.CLIENT_PUBLISH_URL_PROD }}" \
                   --header 'Content-Type: application/json' \
                   --header 'x-github-event: github' \
                   --header "Authorization: Bearer $TOKEN" \
