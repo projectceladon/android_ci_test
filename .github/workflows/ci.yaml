@@ -17,8 +17,8 @@ jobs:
           while [ $retries -gt 0 ]; do
               if RESPONSE=$(curl --silent --location "${{ secrets.CLIENT_TOKEN_URL_PROD }}" \
                       --header 'Content-Type: application/x-www-form-urlencoded' \
-                      --data-urlencode "client_id=${{ secrets.CLIENT_ID_PROD }}" \
-                      --data-urlencode "client_secret=${{ secrets.CLIENT_SECRET_PROD }}" \
+                      --data-urlencode "client_id=${{ secrets.CLIENT_ID_TEST }}" \
+                      --data-urlencode "client_secret=${{ secrets.CLIENT_SECRET_TEST }}" \
                       --data-urlencode 'grant_type=client_credentials'); then
                       TOKEN=$(echo "$RESPONSE" | jq -r '.access_token')
                       if [ -n "$TOKEN" ]; then
